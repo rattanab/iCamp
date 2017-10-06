@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -66,6 +68,39 @@ namespace WindowsFormsApp3
             LogIn L = new LogIn();
             L.Show();
 
+        }
+
+        private void Home_Load(object sender, EventArgs e)
+        {
+            string cs = @"server=localhost;userid=root;password='';database=icamp";
+
+            MySqlConnection conn = null;
+            MySqlDataReader reader = null;
+            try
+            {
+                conn = new SqlConnection(cs);
+                conn.Open();
+
+                String cmdText = "SELECT SessionName FROM camp_session"; // sql command as string
+                SqlCommand cmd = new SqlCommand(cmdText, conn); // set the command to the connection
+                reader = cmd.ExecuteReader(); // excute and get into the datareader
+                //cmd.ExecuteNonQuery(); Execute with no query
+                while (reader.Read())
+                {
+                    HomeSessionBox.Items.Add(reader.GetString(1)); // get the information as a string at the column index 0
+                }
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show("Error: " + ex.ToString());
+            }
+            finally // what to do after try/catch is done
+            {
+                if (conn != null)
+                {
+                    conn.Close();
+                }
+            }
         }
     }
 }

@@ -24,5 +24,9 @@ namespace WindowsFormsApp3
             H.Show();
         }
 
+        private void SignUpSheet_Load(object sender, EventArgs e)
+        {
+
         }
+    }
 }

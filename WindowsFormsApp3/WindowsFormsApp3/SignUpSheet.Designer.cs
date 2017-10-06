@@ -112,6 +112,7 @@
             this.Controls.Add(this.HomeDateAndTime);
             this.Name = "SignUpSheet";
             this.Text = "SignUpSheet";
+            this.Load += new System.EventHandler(this.SignUpSheet_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
